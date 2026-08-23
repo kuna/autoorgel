@@ -1,7 +1,7 @@
-Auto-orgel player
-=================
+AutoOrgel
+=========
 
-A module that rotates crank handle of manual paper orgel player.
+A module that rotates crank handle of manual paper orgel player, making it play song chart by itself.
 
 Consists of the following modules:
 
@@ -9,4 +9,10 @@ Consists of the following modules:
 * Circuit: Describes the components that is used for and the connection between them.
 * Model: The auto-orgel player box and all necessary models for playing.
 
-TODO: How it looks like?
+### Preview of the model
+
+![Model](model/preview.png)
+
+### Preview of the circuit
+
+![Circuit](circuit/autoorgel.png)
