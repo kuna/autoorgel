@@ -1,0 +1,67 @@
+# Note: You need to pull out XT 2.54 connector from those components (cannot be directly connected)
+# * Nano
+# * TMC2208
+
+connectors:
+  Power:
+    pinlabels: [VCC, GND]  # 2S 18650, 7.2V nominal
+  LM2596:
+    pinlabels: [IN+, IN-, OUT+, OUT-]  # 7.2V -> 5V
+  Nano:
+    pinlabels: [D2, D3, D4, D5, D11, D12, A4, A5, 5V, GND]
+  Encoder:
+    pinlabels: [CLK, DT, SW, VCC, GND]  # [D2, D3, D4, 5V, GND]
+  I2C_LCD:
+    pinlabels: [SCL, SDA, VCC, GND]  # [A5, A4, 5V, GND]
+  TMC2208:
+    pinlabels: [EN, STEP, DIR, VIO, GNDIO, M1A, M1B, M2A, M2B, VM, GNDM]  # [STEP, DIR] => [D12, D11]
+  NEMA17:
+    pinlabels: [M1A, M1B, M2A, M2B]
+  Capacitor:  # TMC2208 VM-GND_PWR 사이 100µF 전해 콘덴서
+    type: Electrolytic 100µF 16V
+    notes: "Mount within 5cm of TMC2208 VM pin. Polarity - stripe side to GND."
+    pinlabels: [VM, GNDM]
+  
+
+cables:
+  PW_IN:  {colors: [RD, BK]}
+  PW_5V:  {colors: [RD, BK]}
+  PW_VM:  {colors: [RD, BK]}
+  PW_CAP:  {colors: [RD, BK]}
+  W_ENC:  {colors: [YE, GN, BU, RD, BK]}
+  W_LCD:  {colors: [BR, YE, RD, BK]}
+  W_TMC:  {colors: [YE, PU, OG, RD, BK]}
+  W_MOT:  {colors: [BK, GN, BU, RD]}
+
+connections:
+  - - Power: [VCC, GND]
+    - PW_IN: [1-2]
+    - LM2596: [IN+, IN-]
+
+  - - LM2596: [OUT+, OUT-]
+    - PW_5V: [1-2]
+    - Nano: [5V, GND]
+
+  - - Nano: [D2, D3, D4, 5V, GND]
+    - W_ENC: [1-5]
+    - Encoder: [CLK, DT, SW, VCC, GND]
+
+  - - Nano: [A5, A4, 5V, GND]
+    - W_LCD: [1-4]
+    - I2C_LCD: [SCL, SDA, VCC, GND]
+
+  - - Nano: [D12, D11, D5, 5V, GND]
+    - W_TMC: [1-5]
+    - TMC2208: [STEP, DIR, EN, VIO, GNDIO]
+
+  - - Power: [VCC, GND]
+    - PW_VM: [1-2]
+    - TMC2208: [VM, GNDM]
+
+  - - TMC2208: [VM, GNDM]
+    - PW_CAP: [1-2]
+    - Capacitor: [VM, GNDM]
+
+  - - TMC2208: [M1A, M1B, M2A, M2B]
+    - W_MOT: [1-4]
+    - NEMA17: [M1A, M1B, M2A, M2B]

@@ -1,0 +1,11 @@
+[project]
+name = "autoorgel-wiring"
+version = "0.1.0"
+description = "AutoOrgel wiring documentation"
+requires-python = ">=3.10"
+dependencies = [
+    "wireviz>=0.4.1",
+]
+
+[tool.uv]
+package = false
