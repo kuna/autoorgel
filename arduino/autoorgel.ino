@@ -7,6 +7,7 @@ const int RENC_DT = 3;
 const int RENC_SW = 4;
 const int LCD_SDA = A5;
 const int LCD_SDL = A6;
+const int TMC_EN = 5;
 const int TMC_DIR = 11;
 const int TMC_STEP = 12;
 
@@ -36,10 +37,14 @@ void setup() {
   pinMode(RENC_CLK, INPUT);
   pinMode(RENC_DT, INPUT);
   pinMode(RENC_SW, INPUT_PULLUP);
+  pinMode(TMC_EN, OUTPUT);
   pinMode(TMC_DIR, OUTPUT);
   pinMode(TMC_STEP, OUTPUT);
 
-  // initialize serial communication at 115200 bits per second:
+  // Enable TMC always
+  digitalWrite(TMC_EN, LOW);
+
+  // Initialize serial communication at 115200 bits per second:
   Serial.begin(115200);
   while (!Serial); // wait for serial driver
 
